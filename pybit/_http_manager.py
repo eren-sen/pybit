@@ -76,7 +76,7 @@ class _V5HTTPManager:
     ignore_codes: set = field(default_factory=set)
     max_retries: bool = field(default=3)
     retry_delay: bool = field(default=3)
-    referral_id: bool = field(default=None)
+    referral_id: str = field(default=None)
     record_request_time: bool = field(default=False)
     return_response_headers: bool = field(default=False)
 
@@ -170,15 +170,6 @@ class _V5HTTPManager:
             self.rsa_authentication, self.api_secret, param_str
         )
 
-    @staticmethod
-    def _verify_string(params, key):
-        if key in params:
-            if not isinstance(params[key], str):
-                return False
-            else:
-                return True
-        return True
-
     def _submit_request(self, method=None, path=None, query=None, auth=False):
         """
         Submits the request to the API.
@@ -201,8 +192,8 @@ class _V5HTTPManager:
 
                 return self._handle_response(response, method, path, req_params, recv_window, retries_attempted)
 
-            except (
-            requests.exceptions.ReadTimeout, requests.exceptions.SSLError, requests.exceptions.ConnectionError) as e:
+            except (requests.exceptions.ReadTimeout, requests.exceptions.SSLError, requests.exceptions.ConnectionError) \
+                    as e:
                 self._handle_network_error(e, retries_attempted)
             except JSONDecodeError as e:
                 self._handle_json_error(e, retries_attempted)
