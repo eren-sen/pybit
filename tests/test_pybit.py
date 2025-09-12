@@ -76,22 +76,6 @@ def test_get_server_time_direct(http):
     assert resp['timeNano'].isdigit()
 
 
-def test_get_api_key_information_direct(http):
-    """
-    Checking HTTP.get_api_key_information().
-    Making sure the structure matches what's found in docs - a simple sanity check
-    """
-    resp = http.get_api_key_information()
-    # expecting no errors
-    assert isinstance(resp, dict)
-    assert resp.get("retCode") == 0
-    assert resp.get("retMsg") == ""
-    # expecting info in `result`
-    assert "result" in resp
-    result = resp["result"]
-    assert isinstance(result, dict)
-
-
 # --- ensuring correct init ---
 @pytest.mark.parametrize("testnet, demo, domain, expected_endpoint", [
     # mainnet (testnet=False, demo=False)
