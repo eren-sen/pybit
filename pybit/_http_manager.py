@@ -29,9 +29,12 @@ DEMO_SUBDOMAIN_TESTNET = "api-demo-testnet"
 DEMO_SUBDOMAIN_MAINNET = "api-demo"
 DOMAIN_MAIN = "bybit"
 DOMAIN_ALT = "bytick"
-TLD_MAIN = "com"
-TLD_NL = "nl"
-TLD_HK = "com.hk"
+DOMAIN_TK = "bybit-tr"  # Turkey
+TLD_MAIN = "com"        # Global
+TLD_NL = "nl"           # The Netherlands
+TLD_HK = "com.hk"       # Hong Kong
+TLD_KZ = "kz"           # Kazakhstan
+TLD_EU = "eu"           # European Economic Area. ONLY AVAILABLE TO INSTITUTIONS
 
 
 def generate_signature(use_rsa_authentication, secret, param_str):
