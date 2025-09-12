@@ -100,7 +100,8 @@ class _V5HTTPManager:
             self.retry_codes = {10002, 10006, 30034, 30035, 130035, 130150}
         self.logger = logging.getLogger(__name__)
         if len(logging.root.handlers) == 0:
-            # no handler on root logger set -> we add handler just for this logger to not mess with custom logic from outside
+            # no handler on root logger set -> we add handler just for this logger to not mess with custom logic from
+            # outside
             handler = logging.StreamHandler()
             handler.setFormatter(
                 logging.Formatter(
@@ -195,8 +196,8 @@ class _V5HTTPManager:
 
                 return self._handle_response(response, method, path, req_params, recv_window, retries_attempted)
 
-            except (requests.exceptions.ReadTimeout, requests.exceptions.SSLError, requests.exceptions.ConnectionError) \
-                    as e:
+            except (requests.exceptions.ReadTimeout, requests.exceptions.SSLError,
+                    requests.exceptions.ConnectionError) as e:
                 self._handle_network_error(e, retries_attempted)
             except JSONDecodeError as e:
                 self._handle_json_error(e, retries_attempted)
@@ -248,7 +249,8 @@ class _V5HTTPManager:
     def _check_status_code(self, response, method, path, params):
         """Check HTTP status code."""
         if response.status_code != 200:
-            error_msg = "You have breached the IP rate limit or your IP is from the USA." if response.status_code == 403 else "HTTP status code is not 200."
+            error_msg = "You have breached the IP rate limit or your IP is from the USA."\
+                if response.status_code == 403 else "HTTP status code is not 200."
             self.logger.debug(f"Response text: {response.text}")
             raise FailedRequestError(
                 request=f"{method} {path}: {params}",
